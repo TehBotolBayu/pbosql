@@ -46,7 +46,6 @@ public class Player {
         this.position = position;
     }
 
-    // Optional: Override toString() method for debugging or logging purposes
     @Override
     public String toString() {
         return "Player{" +

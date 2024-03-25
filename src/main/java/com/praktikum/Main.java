@@ -81,7 +81,25 @@ public class Main {
 
     }
 
+    static void jurus(Monster monster) throws IOException{
+        String jurus;
+
+        InputStreamReader input = new InputStreamReader(System.in);
+        BufferedReader read = new BufferedReader(input);
+
+        jurus = read.readLine();
+
+        monster.suara(jurus);
+
+    }
+
     public static void main(String[] args) throws IOException{
+        Monster bayu = 
+        new Monster(2, "bayu", 100);
+
+        Komodo tito = 
+        new Komodo(12, "tito", 120, "abuabu", "jendral");
+
         DB con = new DB();
         PlayerController controller = new PlayerController(con.con);
         int menu;
@@ -89,6 +107,9 @@ public class Main {
         while(jalan){
             System.out.println("1. Tambah Data");
             System.out.println("2. Lihat Data");
+            System.out.println("3. Komodo bersuara");
+            System.out.println("4. Monster bersuara");
+            System.out.println("5. Monster ngeluarin jurus");
 
             InputStreamReader input = new InputStreamReader(System.in);
             BufferedReader read = new BufferedReader(input);
@@ -101,6 +122,15 @@ public class Main {
                     break;
                 case 2:
                     get(controller);
+                    break;
+                case 3:
+                    tito.suara();
+                    break;
+                case 4:
+                    bayu.suara();
+                    break;
+                case 5:
+                    jurus(bayu);
                     break;
                 default:
                     jalan = false;
