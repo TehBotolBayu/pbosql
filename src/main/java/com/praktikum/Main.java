@@ -40,6 +40,9 @@ public class Main {
         int id, age; String name, position;
         // System.out.print("Masukkan id: ");
         // id  = Integer.parseInt(read.readLine());
+        while (true) {
+            
+        
         System.out.print("Masukkan nama: ");
         name = read.readLine();
         System.out.print("Masukkan umur: ");
@@ -48,8 +51,37 @@ public class Main {
         position = read.readLine();
 
         Player P = new Player(0, name, age, position);
+
+        System.out.println("Apakah data berikut sudah benar??");
+        P.printData();
+        System.out.println("1. Ya/n2. Tidak");
+        int pilihan = Integer.parseInt(read.readLine());
+        if(pilihan == 1){
+            try {
+                controller.createPlayer(P);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            break;
+        }else if(pilihan == 2){
+            continue;
+        }
+        }
+    }
+
+    static void killPlayer(PlayerController controller) throws IOException{
+        InputStreamReader input = new InputStreamReader(System.in);
+        BufferedReader read = new BufferedReader(input);
+
+        int id = Integer.parseInt(read.readLine());
+
+        
         try {
-            controller.createPlayer(P);
+            Player P = controller.getPlayerById(id);
+
+            P.death();
+
+            controller.updatePlayer(P);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -98,7 +130,7 @@ public class Main {
         new Monster(2, "bayu", 100);
 
         Komodo tito = 
-        new Komodo(12, "tito", 120, "abuabu", "jendral");
+        new Komodo(12, "tito", 120, "abuabu", "jendrama2l");
 
         DB con = new DB();
         PlayerController controller = new PlayerController(con.con);
@@ -110,6 +142,7 @@ public class Main {
             System.out.println("3. Komodo bersuara");
             System.out.println("4. Monster bersuara");
             System.out.println("5. Monster ngeluarin jurus");
+            System.out.println("6. Meninggal");
 
             InputStreamReader input = new InputStreamReader(System.in);
             BufferedReader read = new BufferedReader(input);
@@ -131,6 +164,9 @@ public class Main {
                     break;
                 case 5:
                     jurus(bayu);
+                    break;
+                case 6:
+                    killPlayer(controller);
                     break;
                 default:
                     jalan = false;
